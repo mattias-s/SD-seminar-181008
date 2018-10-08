@@ -1,0 +1,28 @@
+{
+  "id": "a5dddad7-84e6-421b-a732-1df52d6c031c",
+  "name": "SD Seminar",
+  "publisher": "D. E. Veloper",
+  "brief": "This is my awesome app",
+  "description": "It is a Seminar Module",
+  "version": "1.0.0.0",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
+  "capabilities": [],
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "13.0.0.0",
+  "application": "13.0.0.0",
+  "features": [
+    "TranslationFile"
+  ],
+  "showMyCode": true,
+  "target": "Internal",
+  "idRange": {
+    "from": 50100,
+    "to": 50149
+  },
+  "runtime": "2.0"
+}
