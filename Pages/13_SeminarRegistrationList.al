@@ -38,7 +38,7 @@ page 50113 "CSD Seminar Registration List"
                 field("Maximum Participants"; "Maximum Participants")
                 {
                 }
-                field("Room Code"; "Room Code")
+                field("Room Code"; "Room Resource No.")
                 {
                 }
             }
@@ -75,6 +75,16 @@ page 50113 "CSD Seminar Registration List"
                     Image = Costs;
                     RunObject = Page 50124;
                     RunPageLink = "Document No." = Field ("No.");
+                }
+                action("&Post")
+                {
+                    Caption = '&Post';
+                    Image = PostDocument;
+                    Promoted = true;
+                    PromotedIsBig = true;
+                    PromotedCategory = Process;
+                    ShortcutKey = F9;
+                    RunObject = codeunit "CSD Seminar-Post (Yes/No)";
                 }
             }
         }

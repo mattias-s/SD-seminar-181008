@@ -64,7 +64,7 @@ table 50110 "CSD Seminar Reg. Header"
         field(4; "Seminar Name"; Text[50])
         {
         }
-        field(5; "Instructor Code"; Code[20])
+        field(5; "Instructor Resource No."; Code[20])
         {
             TableRelation = Resource where (Type = const (Person));
 
@@ -75,7 +75,7 @@ table 50110 "CSD Seminar Reg. Header"
         }
         field(6; "Instructor Name"; Text[50])
         {
-            CalcFormula = Lookup (Resource.Name where ("No." = Field ("Instructor Code"),
+            CalcFormula = Lookup (Resource.Name where ("No." = Field ("Instructor Resource No."),
                                                       Type = const (Person)));
             Editable = false;
             FieldClass = FlowField;
@@ -95,13 +95,13 @@ table 50110 "CSD Seminar Reg. Header"
         field(10; "Minimum Participants"; Integer)
         {
         }
-        field(11; "Room Code"; Code[20])
+        field(11; "Room Resource No."; Code[20])
         {
             TableRelation = Resource where (Type = const (Machine));
 
             trigger OnValidate();
             begin
-                if "Room Code" = '' then begin
+                if "Room Resource No." = '' then begin
                     "Room Name" := '';
                     "Room Address" := '';
                     "Room Address 2" := '';
@@ -110,7 +110,7 @@ table 50110 "CSD Seminar Reg. Header"
                     "Room County" := '';
                     "Room Country/Reg. Code" := '';
                 end else begin
-                    SeminarRoom.GET("Room Code");
+                    SeminarRoom.GET("Room Resource No.");
                     "Room Name" := SeminarRoom.Name;
                     "Room Address" := SeminarRoom.Address;
                     "Room Address 2" := SeminarRoom."Address 2";
@@ -267,7 +267,7 @@ table 50110 "CSD Seminar Reg. Header"
         key(PK; "No.")
         {
         }
-        key(Key2; "Room Code")
+        key(Key2; "Room Resource No.")
         {
             SumIndexFields = Duration;
         }

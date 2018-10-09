@@ -33,7 +33,7 @@ page 50110 "CSD Seminar Registration"
                 field("Seminar Name"; "Seminar Name")
                 {
                 }
-                field("Instructor Code"; "Instructor Code")
+                field("Instructor Code"; "Instructor Resource No.")
                 {
                 }
                 field("Instructor Name"; "Instructor Name")
@@ -65,7 +65,7 @@ page 50110 "CSD Seminar Registration"
                     Caption = 'Lines';
                     SubPageLink = "Document No." = field ("No.");
                 }
-                field("Room Code"; "Room Code")
+                field("Room Code"; "Room Resource No.")
                 {
                 }
                 field("Room Name"; "Room Name")
@@ -145,6 +145,19 @@ page 50110 "CSD Seminar Registration"
                     RunObject = Page 50124;
                     RunPageLink = "Document No." = Field ("No.");
                 }
+            }
+        }
+        area(Processing)
+        {
+            action("&Post")
+            {
+                Caption = '&Post';
+                Image = PostDocument;
+                Promoted = true;
+                PromotedIsBig = true;
+                PromotedCategory = Process;
+                ShortcutKey = F9;
+                RunObject = codeunit "CSD Seminar-Post (Yes/No)";
             }
         }
     }
