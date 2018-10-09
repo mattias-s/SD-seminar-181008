@@ -75,7 +75,7 @@ table 50110 "CSD Seminar Reg. Header"
         }
         field(6; "Instructor Name"; Text[50])
         {
-            CalcFormula = Lookup (Resource.Name where ("No." = Field ("Instructor Resource No."),
+            CalcFormula = Lookup (Resource.Name where ("No." = Field ("Instructor Code"),
                                                       Type = const (Person)));
             Editable = false;
             FieldClass = FlowField;
@@ -208,7 +208,7 @@ table 50110 "CSD Seminar Reg. Header"
         {
             Editable = false;
             FieldClass = FlowField;
-            CalcFormula = Exist ("CSD Seminar Comment Line" where ("Table Name" = const ("Seminar Registration Header"), "No." = Field ("No.")));
+            CalcFormula = Exist ("CSD Seminar Comment Line" where ("Table Name" = const ("Seminar Registration"), "No." = Field ("No.")));
 
         }
         field(23; "Posting Date"; Date)
@@ -291,6 +291,8 @@ table 50110 "CSD Seminar Reg. Header"
 
     trigger OnDelete();
     begin
+        if (CurrFieldNo > 0) then
+            TestField(Status, Status::Canceled);
         SeminarRegLine.RESET;
         SeminarRegLine.SETRANGE("Document No.", "No.");
         SeminarRegLine.SETRANGE(Registered, true);
@@ -309,7 +311,7 @@ table 50110 "CSD Seminar Reg. Header"
             ERROR(Text006, SeminarCharge.TableCaption);
 
         SeminarCommentLine.RESET;
-        SeminarCommentLine.SETRANGE("Table Name", SeminarCommentLine."Table Name"::"Seminar Registration Header");
+        SeminarCommentLine.SETRANGE("Table Name", SeminarCommentLine."Table Name"::"Seminar Registration");
         SeminarCommentLine.SETRANGE("No.", "No.");
         SeminarCommentLine.deleteALL;
     end;
@@ -322,11 +324,17 @@ table 50110 "CSD Seminar Reg. Header"
             NoSeriesMgt.InitSeries(SeminarSetup."Seminar Registration Nos.", xRec."No. Series", 0D, "No.", "No. Series");
         end;
 
+        InitRecord();
+    end;
+
+    local procedure InitRecord()
+    begin
         if "Posting Date" = 0D then
             "Posting Date" := WORKDATE;
         "Document Date" := WORKDATE;
         SeminarSetup.GET;
-        NoSeriesMgt.SetDefaultSeries("Posting No. Series", SeminarSetup."Posted Seminar Reg. Nos.");
+        NoSeriesMgt.SetDefaultSeries("Posting No. Series",
+                SeminarSetup."Posted Seminar Reg. Nos.");
     end;
 
     procedure AssistEdit(OldSeminarRegHeader: Record "CSD Seminar Reg. Header"): Boolean;
