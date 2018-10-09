@@ -55,6 +55,14 @@ page 50101 "CSD Seminar Card"
                 {
                 }
             }
+            group(Testing)
+            {
+
+                field("Testus"; "Test1")
+                {
+
+                }
+            }
         }
         area(FactBoxes)
         {

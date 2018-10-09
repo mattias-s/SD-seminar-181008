@@ -94,6 +94,11 @@ table 50101 "CSD Seminar"
             Caption = 'No. Series';
             TableRelation = "No. Series";
         }
+        field(140; "Test1"; text[20])
+        {
+            Caption = 'Testrutan';
+            Editable = true;
+        }
 
     }
 
